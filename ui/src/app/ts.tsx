@@ -6,6 +6,7 @@ import Editor, { Monaco } from "@monaco-editor/react";
 const TS = () => {
   const editorRef = useRef(null);
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars
   function handleEditorDidMount(editor: any, _: Monaco) {
     // here is the editor instance
     // you can store it in `useRef` for further usage

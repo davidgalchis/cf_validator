@@ -1,5 +1,6 @@
 'use client'
 
+import React from 'react'
 import type { Metadata, Viewport } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
@@ -18,7 +19,8 @@ import { get_config } from '@/config/config'
 
 const inter = Inter({ subsets: ['latin'] })
 
-const metadata: Metadata = {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const metadata: Metadata = { 
   title: {
     default: siteConfig.name,
     template: `%s - ${siteConfig.name}`,

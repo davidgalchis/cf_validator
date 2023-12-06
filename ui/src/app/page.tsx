@@ -1,15 +1,11 @@
 'use client'
 
-import Link from "next/link"
-import { siteConfig } from "@/config/site"
 import { Button } from "@/components/ui/button"
 import React, { useRef, useState } from "react";
 import Editor, { Monaco } from "@monaco-editor/react";
 import GithubD from "../editor_themes/GitHub Dark.json"
 import {
-  useQuery,
-  useMutation,
-  useQueryClient,
+  useMutation
 } from '@tanstack/react-query'
 import axios from 'axios';
 import { Icons } from "@/components/icons";
@@ -33,6 +29,7 @@ export default function Home() {
     else { setContent("") }
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   function handleEditorDidMount(editor: any, monaco: Monaco) {
     // here is the editor instance
     // you can store it in `useRef` for further usage
