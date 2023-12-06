@@ -1,3 +1,5 @@
+'use client'
+
 import type { Metadata, Viewport } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
@@ -6,11 +8,17 @@ import { cn } from "@/lib/utils"
 import { SiteHeader } from "@/components/site-header"
 import { TailwindIndicator } from "@/components/tailwind-indicator"
 import { ThemeProvider } from "@/components/theme-provider"
-
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import {
+  QueryClient,
+  QueryClientProvider,
+} from '@tanstack/react-query'
+import axios from 'axios'
+import { get_config } from '@/config/config'
 
 const inter = Inter({ subsets: ['latin'] })
 
-export const metadata: Metadata = {
+const metadata: Metadata = {
   title: {
     default: siteConfig.name,
     template: `%s - ${siteConfig.name}`,
@@ -35,7 +43,12 @@ interface RootLayoutProps {
   children: React.ReactNode
 }
 
+const queryClient = new QueryClient()
+
 export default function RootLayout({ children }: RootLayoutProps) {
+
+  axios.defaults.baseURL = `${get_config().api_endpoint}${get_config().api_endpoint_stage ? `/${get_config().api_endpoint_stage}`: ""}`;
+
   return (
     <>
       <html lang="en" suppressHydrationWarning>
@@ -50,7 +63,12 @@ export default function RootLayout({ children }: RootLayoutProps) {
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             <div className="relative flex min-h-screen flex-col">
               <SiteHeader />
-              <div className="flex-1">{children}</div>
+              <div className="flex-1">
+                <QueryClientProvider client={queryClient}>
+                  {children}
+                  <ReactQueryDevtools initialIsOpen={false} />
+                </QueryClientProvider>
+              </div>
             </div>
             <TailwindIndicator />
           </ThemeProvider>

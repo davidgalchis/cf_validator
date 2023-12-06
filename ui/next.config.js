@@ -2,4 +2,7 @@
 
 // const withCSS = require('@zeit/next-css')
 
-module.exports = {};
+module.exports = {
+    output: 'export',
+    distDir: 'build',
+};

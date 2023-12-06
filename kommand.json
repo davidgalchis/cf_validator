@@ -1,0 +1,73 @@
+{
+    "components": {
+        "ui": {
+            "type": "@reactapp.spa",
+            "bundler": "webpack",
+            "config":{
+                "path":"src/config/config.js",
+                "data": {
+                    "api_endpoint": "@api:props.api_endpoint",
+                    "api_endpoint_stage": "@api:props.stage_name"
+                }
+            }
+        },
+        "table": {
+            "type": "@dynamodb.table"
+        },
+        "api": {
+            "type": "@apigateway.api",
+            "resources": {
+                "/{proxy+}": {
+                    "OPTIONS": "@lambda:props.arn",
+                    "POST": "@lambda:props.arn",
+                    "GET": "@lambda:props.arn"
+                }
+            },
+            "cors_enabled": true,
+            "throttling_burst_limit": 100,
+            "throttling_rate_limit": 1000
+        },
+        "lambda": {
+            "type": "@lambda.function",
+            "description": "Cloudformation Validation Lambda",
+            "timeout": 10,
+            "policies": ["@policy"],
+            "environment_variables": {
+                "table_name": "@table:props.name",
+                "s3_bucket_name": "@bucket:props.name"
+            }
+        },
+        "bucket": {
+            "type": "@s3.bucket"
+        },
+        "policy": {
+            "type": "@iam.policy",
+            "description": "Cloudformation Validation Policy",
+            "document": {
+                "Version": "2012-10-17",
+                "Statement": [
+                    {
+                      "Action": ["s3:*"],
+                      "Effect": "Allow",
+                      "Resource": ["@bucket:props.arn", "@bucket:props.all_objects_arn"],
+                      "Sid": "s3BucketPermissions"
+                    },
+                    {
+                        "Action": ["dynamodb:*"],
+                        "Effect": "Allow",
+                        "Resource": ["@table:props.arn", "@table:props.all_indexes_arn"],
+                        "Sid": "dynamodbTablePermissions"
+                    }
+                ]
+            }
+        }
+    },
+    "repos": {
+        "reactapp": "https://github.com/cloudkommand/reactapp",
+        "apigateway": "https://github.com/cloudkommand/apigateway",
+        "dynamodb": "https://github.com/cloudkommand/dynamodb",
+        "s3": "https://github.com/cloudkommand/s3",
+        "lambda": "https://github.com/cloudkommand/lambda",
+        "iam": "https://github.com/cloudkommand/iam"
+    }
+}
