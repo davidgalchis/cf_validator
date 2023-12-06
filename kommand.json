@@ -3,6 +3,7 @@
         "ui": {
             "type": "@reactapp.spa",
             "bundler": "webpack",
+            "node_version": 18,
             "config":{
                 "path":"src/config/config.js",
                 "data": {
