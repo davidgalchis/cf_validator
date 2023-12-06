@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button"
 import React, { useRef, useState } from "react";
-import Editor, { Monaco } from "@monaco-editor/react";
+import Editor from "@monaco-editor/react";
 import GithubD from "../editor_themes/GitHub Dark.json"
 import {
   useMutation
@@ -18,7 +18,8 @@ export default function Home() {
   const [content, setContent] = useState("");
 
   // Mutations
-  const validateCloudformation = useMutation({
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const validateCloudformation = useMutation<Response, any, any>({
     mutationFn: (cloudformation) => {
       return axios.post('/validate-cloudformation', cloudformation)
     }
@@ -30,7 +31,7 @@ export default function Home() {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  function handleEditorDidMount(editor: any, monaco: Monaco) {
+  function handleEditorDidMount(editor: any, monaco: any) {
     // here is the editor instance
     // you can store it in `useRef` for further usage
     monaco.editor.defineTheme("githubdark", GithubD)

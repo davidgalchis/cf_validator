@@ -5,7 +5,7 @@ import {
   SunMedium,
   Twitter,
   Loader2,
-  type Icon as LucideIcon,
+  LucideIcon,
 } from "lucide-react"
 // import { config } from '@fortawesome/fontawesome-svg-core'
 // import '@fortawesome/fontawesome-svg-core/styles.css'
