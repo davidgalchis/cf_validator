@@ -31,5 +31,7 @@ module.exports = {
         "react"
     ],
     "rules": {
+        "semi": 0,
+        "no-extra-semi": "off"
     }
 }
