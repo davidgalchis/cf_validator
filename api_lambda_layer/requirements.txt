@@ -1,0 +1,13 @@
+requests==2.28.2
+cloudpickle
+jsonpath-rw
+aws-lambda-powertools
+fastjsonschema
+cryptography
+pyjwt
+fastapi
+starlette
+mangum
+pydantic
+aws_xray_sdk
+cfn-lint

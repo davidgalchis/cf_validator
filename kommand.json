@@ -27,7 +27,7 @@
             "throttling_burst_limit": 100,
             "throttling_rate_limit": 1000
         },
-        "lambda": {
+        "api_lambda": {
             "type": "@lambda.function",
             "description": "Cloudformation Validation Lambda",
             "timeout": 10,
@@ -36,6 +36,12 @@
                 "table_name": "@table:props.name",
                 "s3_bucket_name": "@bucket:props.name"
             }
+        },
+        "api_lambda_layer": {
+            "type": "@lambda.layer",
+            "compatible_runtimes": ["python3.10"],
+            "requirements_runtime": "python3.10",
+            "requirements.txt": true
         },
         "bucket": {
             "type": "@s3.bucket"
